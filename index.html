@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuxeBet | Premium Arena</title>
+    <title>LuxeBet | Ultimate Premium Arena</title>
     <style>
         :root {
             --bg-body: #0b0e14;
@@ -25,8 +25,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
 
-        /* EFFET DE FLASH GLOBAL */
-        .flash-red { animation: screenFlashRed 0.4s ease-out-forward; }
+        .flash-red { animation: screenFlashRed 0.4s ease-out; }
         .shake-screen { animation: screenShake 0.4s ease-in-out; }
 
         /* SIDEBAR */
@@ -37,7 +36,7 @@
         .menu-item { display: flex; align-items: center; padding: 12px 15px; color: var(--text-main); text-decoration: none; border-radius: 8px; font-weight: 500; margin-bottom: 5px; transition: 0.2s; }
         .menu-item:hover { background-color: rgba(255, 255, 255, 0.03); color: var(--primary); }
 
-        /* MAIN CONTENT */
+        /* MAIN */
         main { margin-left: 260px; flex-grow: 1; display: flex; flex-direction: column; transition: all 0.3s; }
         header { height: 75px; background-color: rgba(11, 14, 20, 0.8); backdrop-filter: blur(10px); display: flex; justify-content: flex-end; align-items: center; padding: 0 40px; position: sticky; top: 0; z-index: 9; border-bottom: 1px solid rgba(255, 255, 255, 0.02); }
         
@@ -46,13 +45,13 @@
         .btn-deposit { background: linear-gradient(135deg, var(--primary), #7b2cbf); color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px var(--primary-glow); transition: 0.2s; }
         .btn-deposit:hover { transform: scale(1.05); }
 
-        /* LIVE TICKER */
+        /* TICKER */
         .live-ticker { background-color: #080a0f; height: 45px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); display: flex; align-items: center; gap: 15px; padding: 0 40px; overflow: hidden; }
         .ticker-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--neon-green); white-space: nowrap; }
         .ticker-container { display: flex; gap: 12px; width: 100%; }
         .win-box { background-color: var(--bg-card); padding: 4px 12px; border-radius: 4px; font-size: 12px; display: flex; gap: 8px; border-bottom: 2px solid var(--neon-green); animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-        /* LOBBY VIEW */
+        /* LOBBY */
         .content-body { padding: 40px; max-width: 1300px; width: 100%; margin: 0 auto; }
         .hero-banner { background: linear-gradient(135deg, rgba(23, 31, 48, 0.8) 0%, rgba(17, 22, 34, 0.4) 100%), radial-gradient(circle at top right, var(--primary-glow), transparent 60%); border: 1px solid rgba(255, 255, 255, 0.03); border-radius: 16px; padding: 40px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
         .hero-text h1 { font-size: 36px; font-weight: 800; margin-bottom: 10px; }
@@ -61,17 +60,19 @@
 
         /* GAMES GRID */
         .section-header h2 { font-size: 20px; text-transform: uppercase; border-left: 4px solid var(--primary); padding-left: 12px; margin-bottom: 25px; }
-        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
         .game-card { background-color: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid transparent; }
         .game-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 10px 25px var(--primary-glow); }
-        .game-thumbnail { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 55px; transition: transform 0.3s; }
+        .game-thumbnail { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 55px; transition: transform 0.3s; }
         .game-card:hover .game-thumbnail { transform: scale(1.15) rotate(3deg); }
         .thumb-crash { background: linear-gradient(135deg, #2c1a4d, #110924); }
         .thumb-mines { background: linear-gradient(135deg, #163e30, #091a14); }
         .thumb-cases { background: linear-gradient(135deg, #4d3a1a, #241909); }
+        .thumb-limbo { background: linear-gradient(135deg, #4d1a3a, #240919); }
+        .thumb-roulette { background: linear-gradient(135deg, #1a294d, #091024); }
         .game-info { padding: 15px; background: rgba(0,0,0,0.3); font-weight: 600; text-align: center; }
 
-        /* GAME INTERFACE */
+        /* ARENA INTERFACE */
         #game-arena { display: none; background-color: var(--bg-sidebar); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; margin-top: 20px; animation: popIn 0.4s ease-out; }
         .arena-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
         .btn-leave { background: transparent; border: 1px solid var(--text-muted); color: var(--text-muted); padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; }
@@ -84,73 +85,66 @@
         .input-group input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
         
         .btn-play-action { background: var(--neon-green); color: #000; border: none; padding: 18px; font-weight: 800; border-radius: 8px; cursor: pointer; text-transform: uppercase; width: 100%; font-size: 15px; letter-spacing: 0.5px; transition: all 0.2s; box-shadow: 0 4px 15px var(--neon-green-glow); }
-        .btn-play-action:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .btn-play-action:active { transform: translateY(1px); }
+        .btn-play-action:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-play-action:disabled { background: #334155; color: #64748b; cursor: not-allowed; box-shadow: none; }
 
         .game-display { background: var(--bg-body); border-radius: 12px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 30px; border: 1px solid rgba(255,255,255,0.02); box-shadow: inset 0 0 40px rgba(0,0,0,0.5); }
 
-        /* ANIMATED STAKE MINES */
+        /* MINES GFX */
         .mines-grid-5x5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; width: 100%; max-width: 440px; aspect-ratio: 1/1; }
-        .mine-cell-5x5 { background: #212c42; border: none; border-radius: 10px; cursor: pointer; font-size: 26px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 5px 0 #131b29; position: relative; transform-style: preserve-3d; }
+        .mine-cell-5x5 { background: #212c42; border: none; border-radius: 10px; cursor: pointer; font-size: 26px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 5px 0 #131b29; position: relative; }
         .mine-cell-5x5:hover:not(:disabled) { background: #2b3a57; transform: translateY(-3px); box-shadow: 0 8px 0 #131b29; }
-        .mine-cell-5x5:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 2px 0 #131b29; }
-        
         .mine-cell-5x5.clicked { animation: flipTile 0.25s ease-out forwards; }
         .mine-cell-5x5.diamond-found { background: linear-gradient(135deg, #00f5d4, #00b4d8) !important; box-shadow: 0 0 20px rgba(0, 245, 212, 0.6) !important; transform: scale(0.95); cursor: default; }
         .mine-cell-5x5.bomb-exploded { background: linear-gradient(135deg, #ff3366, #d90429) !important; box-shadow: 0 0 25px var(--neon-red-glow) !important; transform: scale(0.95); animation: tileExplode 0.3s ease-out; cursor: default; }
         .mine-cell-5x5.revealed-safe { background: #171f30; opacity: 0.3; cursor: default; box-shadow: none; transform: scale(0.9); }
 
-        /* REALISTIC CRASH ARENA */
+        /* CRASH GFX */
         .crash-container { width: 100%; height: 100%; display: flex; flex-direction: column; position: relative; min-height: 350px; justify-content: flex-end; }
         .crash-plot-zone { flex-grow: 1; width: 100%; position: relative; border-left: 2px solid rgba(255,255,255,0.1); border-bottom: 2px solid rgba(255,255,255,0.1); overflow: hidden; margin-bottom: 10px; }
-        #crash-multiplier { font-size: 4.5rem; font-weight: 800; color: #fff; position: absolute; top: 20px; left: 30px; text-shadow: 0 0 20px rgba(255,255,255,0.2); z-index: 2; transition: color 0.2s; }
-        .rocket-ship { font-size: 50px; position: absolute; bottom: 0; left: 0; transform: translate(-50%, 50%); transition: all 0.1s linear; z-index: 3; filter: drop-shadow(0 0 15px var(--primary-glow)); }
-        .rocket-trail { position: absolute; bottom: 0; left: 0; height: 3px; background: linear-gradient(to right, transparent, var(--primary), var(--neon-green)); transform-origin: left bottom; width: 0; transition: all 0.1s linear; }
+        #crash-multiplier { font-size: 4.5rem; font-weight: 800; color: #fff; position: absolute; top: 20px; left: 30px; z-index: 2; }
+        .rocket-ship { font-size: 50px; position: absolute; bottom: 0; left: 0; transform: translate(-50%, 50%); transition: all 0.1s linear; z-index: 3; }
+        .rocket-trail { position: absolute; bottom: 0; left: 0; height: 3px; background: linear-gradient(to right, transparent, var(--primary), var(--neon-green)); transform-origin: left bottom; width: 0; }
 
-        /* CASING REWARD ANIMATION */
-        .box-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
-        .box-icon-anim { font-size: 90px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transition: transform 0.1s; }
-        .box-shake-anim { animation: boxRumble 0.15s infinite; }
-        .box-open-explode { animation: boxPopOpen 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        .reward-card { background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); border: 2px solid var(--gold); border-radius: 12px; padding: 20px 40px; text-align: center; box-shadow: 0 0 30px rgba(255, 183, 3, 0.3); animation: rewardPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        /* INTERACTIVE MYSTERY BOXES */
+        .box-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; width: 100%; }
+        .interactive-box-wrapper { position: relative; cursor: pointer; animation: floatBox 2s ease-in-out infinite; padding: 20px; transition: transform 0.2s; }
+        .interactive-box-wrapper:hover { transform: scale(1.1); filter: drop-shadow(0 0 25px var(--primary-glow)); }
+        .box-big-icon { font-size: 110px; user-select: none; }
+        .box-hint-text { font-size: 14px; color: var(--text-gold); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; animation: pulseGlow 1.5s infinite; text-align: center; }
+        .box-shake-heavy { animation: boxRumbleHeavy 0.1s infinite !important; }
+        .box-explode-out { animation: boxPopOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .reward-card { background: linear-gradient(135deg, #1e1b4b, #0f172a); border: 2px solid var(--gold); border-radius: 16px; padding: 30px 50px; text-align: center; box-shadow: 0 0 40px rgba(255, 183, 3, 0.4); animation: rewardPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-        /* KEYFRAMES KEY ANIMATIONS */
-        @keyframes flipTile {
-            0% { transform: scale(1) rotateY(0); }
-            50% { transform: scale(1.1) rotateY(90deg); }
-            100% { transform: scale(0.95) rotateY(180deg); }
-        }
-        @keyframes tileExplode {
-            0% { transform: scale(1); filter: brightness(2); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(0.95); filter: brightness(1); }
-        }
-        @keyframes screenFlashRed {
-            0% { background-color: rgba(255, 51, 102, 0.4); }
-            100% { background-color: transparent; }
-        }
-        @keyframes screenShake {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            20% { transform: translateX(-8px) translateY(6px); }
-            40% { transform: translateX(8px) translateY(-6px); }
-            60% { transform: translateX(-6px) translateY(-4px); }
-            80% { transform: translateX(6px) translateY(4px); }
-        }
-        @keyframes boxRumble {
-            0% { transform: translate(2px, 1px) rotate(0deg); }
-            100% { transform: translate(-1px, -2px) rotate(-1deg); }
-        }
-        @keyframes boxPopOpen {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); filter: brightness(2); }
-            100% { transform: scale(0); opacity: 0; }
-        }
-        @keyframes rewardPop {
-            0% { transform: scale(0.6); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        @keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes slideInRight { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        /* LIMBO GFX */
+        .limbo-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 10px; }
+        #limbo-multiplier-display { font-size: 6rem; font-weight: 800; color: #fff; text-shadow: 0 0 30px rgba(255,255,255,0.1); transition: color 0.1s; }
+
+        /* ROULETTE TAPE SLIDER GFX */
+        .roulette-arena { width: 100%; max-width: 600px; display: flex; flex-direction: column; align-items: center; gap: 25px; }
+        .roulette-view-window { width: 100%; height: 90px; background: #090d16; border: 2px solid rgba(255,255,255,0.05); border-radius: 12px; position: relative; overflow: hidden; box-shadow: inset 0 0 20px #000; }
+        .roulette-marker-line { width: 4px; height: 100%; background: var(--gold); position: absolute; left: 50%; top: 0; transform: translateX(-50%); z-index: 4; box-shadow: 0 0 10px var(--gold); }
+        .roulette-strip-tape { display: flex; position: absolute; left: 0; top: 0; height: 100%; width: max-content; will-change: transform; }
+        .roulette-block { width: 75px; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; border-right: 2px solid #090d16; color: #fff; }
+        .r-red { background: linear-gradient(135deg, #ef233c, #b7094c); }
+        .r-black { background: linear-gradient(135deg, #2b2d42, #111324); }
+        .r-gold { background: linear-gradient(135deg, #ffb703, #fb8500); }
+        .roulette-chips-selectors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; }
+        .chip-btn { padding: 12px; border: none; border-radius: 8px; font-weight: 700; color: #fff; cursor: pointer; text-transform: uppercase; font-size: 12px; transition: 0.2s; }
+        .chip-btn.active-chip { outline: 3px solid #fff; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+
+        /* ANIMATIONS */
+        @keyframes floatBox { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes pulseGlow { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; text-shadow: 0 0 10px var(--text-gold); } }
+        @keyframes boxRumbleHeavy { 0%, 100% { transform: translate(3px, 2px) rotate(0deg); } 50% { transform: translate(-2px, -3px) rotate(-2deg); } }
+        @keyframes flipTile { 0% { transform: scale(1) rotateY(0); } 100% { transform: scale(0.95) rotateY(180deg); } }
+        @keyframes tileExplode { 0% { transform: scale(1); filter: brightness(2); } 100% { transform: scale(0.95); filter: brightness(1); } }
+        @keyframes boxPopOpen { 0% { transform: scale(1.1); } 100% { transform: scale(0); opacity: 0; } }
+        @keyframes rewardPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes popIn { from { transform: scale(0.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes slideInRight { from { transform: translateX(80px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes screenFlashRed { 0% { background-color: rgba(255, 51, 102, 0.35); } 100% { background-color: transparent; } }
+        @keyframes screenShake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -182,14 +176,14 @@
             <div id="lobby-view">
                 <section class="hero-banner">
                     <div class="hero-text">
-                        <h1>Luxe<span>Bet</span> Premium Originals</h1>
-                        <p>Des mécaniques fluides, des animations percutantes et de l'adrénaline pure en mode fictif.</p>
+                        <h1>Luxe<span>Bet</span> Premium Arena</h1>
+                        <p>Découvrez nos modes exclusifs entièrement repensés avec un maximum de sensations visuelles.</p>
                     </div>
-                    <div style="font-size: 70px; animation: boxRumble 3s infinite alternate;">🎰</div>
+                    <div style="font-size: 70px;">💎</div>
                 </section>
 
                 <section>
-                    <div class="section-header"><h2>Jeux Disponibles</h2></div>
+                    <div class="section-header"><h2>Jeux Originaux Simulés</h2></div>
                     <div class="games-grid">
                         <div class="game-card" onclick="startGame('mines')">
                             <div class="game-thumbnail thumb-mines">💣</div>
@@ -201,7 +195,15 @@
                         </div>
                         <div class="game-card" onclick="startGame('cases')">
                             <div class="game-thumbnail thumb-cases">📦</div>
-                            <div class="game-info">Boîtes Mystères</div>
+                            <div class="game-info">Boîtes Mystères 2.0</div>
+                        </div>
+                        <div class="game-card" onclick="startGame('limbo')">
+                            <div class="game-thumbnail thumb-limbo">🎯</div>
+                            <div class="game-info">Limbo Target</div>
+                        </div>
+                        <div class="game-card" onclick="startGame('roulette')">
+                            <div class="game-thumbnail thumb-roulette">🎡</div>
+                            <div class="game-info">Roulette Slider</div>
                         </div>
                     </div>
                 </section>
@@ -210,7 +212,7 @@
             <div id="game-arena">
                 <div class="arena-header">
                     <h3 id="arena-title">Jeu</h3>
-                    <button class="btn-leave" onclick="backToLobby()">Quitter</button>
+                    <button class="btn-leave" onclick="backToLobby()">Retour à l'accueil</button>
                 </div>
                 
                 <div class="game-layout">
@@ -220,7 +222,7 @@
                             <input type="number" id="bet-amount" value="10" min="1">
                         </div>
                         <div id="custom-game-options"></div>
-                        <button class="btn-play-action" id="main-action-btn" onclick="executeGameLogic()">Lancer la partie</button>
+                        <button class="btn-play-action" id="main-action-btn" onclick="executeGameLogic()">Placer la mise</button>
                     </div>
 
                     <div class="game-display" id="game-display-zone"></div>
@@ -235,36 +237,22 @@
         let currentGame = '';
         let gameRunning = false;
 
-        // Variables Mines
-        let minesBoard = [];
-        let isMinesActive = false;
-        let minesCount = 3;
-        let revealedDiamonds = 0;
-        let currentMinesBet = 0;
-        let currentMinesMultiplier = 1.00;
-
-        // Variables Crash
-        let crashInterval;
-        let crashMultiplier = 1.00;
-        let crashPoint = 0;
+        // States globales
+        let minesBoard = [], isMinesActive = false, minesCount = 3, revealedDiamonds = 0, currentMinesBet = 0, currentMinesMultiplier = 1.00;
+        let crashInterval, crashMultiplier = 1.00, crashPoint = 0;
+        let selectedRouletteColor = 'red';
+        let currentActiveBoxPrice = 0;
 
         function updateBalanceView() {
             document.getElementById('user-balance').innerText = balance.toFixed(2);
         }
-
-        function resetBalance() {
-            balance = 1000.00;
-            updateBalanceView();
-        }
-
+        function resetBalance() { balance = 1000.00; updateBalanceView(); }
         function backToLobby() {
             clearInterval(crashInterval);
-            gameRunning = false;
-            isMinesActive = false;
+            gameRunning = false; isMinesActive = false;
             document.getElementById('game-arena').style.display = 'none';
             document.getElementById('lobby-view').style.display = 'block';
         }
-
         function triggerScreenEffects(type) {
             const wrapper = document.getElementById('main-content-wrapper');
             if(type === 'lose') {
@@ -286,279 +274,333 @@
             opt.innerHTML = '';
             actionBtn.disabled = false;
             actionBtn.style.background = 'var(--neon-green)';
-            actionBtn.innerText = "Miser / Lancer";
+            actionBtn.innerText = "Placer la mise";
 
             if (gameType === 'mines') {
                 title.innerText = "💣 Mines Royal";
                 opt.innerHTML = `<div class="input-group"><label>Nombre de Bombes</label><input type="number" id="mine-bombs-count" value="3" min="1" max="24"></div>`;
                 buildMinesGrid5x5(display);
             } else if (gameType === 'crash') {
-                title.innerText = "🚀 Crash Multiplier";
-                display.innerHTML = `
-                    <div class="crash-container">
-                        <div id="crash-multiplier">1.00x</div>
-                        <div class="crash-plot-zone">
-                            <div class="rocket-trail" id="rocket-trail-line"></div>
-                            <div class="rocket-ship" id="rocket-emoji">🚀</div>
-                        </div>
-                    </div>`;
+                title.innerText = "🚀 Crash Arena";
+                display.innerHTML = `<div class="crash-container"><div id="crash-multiplier">1.00x</div><div class="crash-plot-zone"><div class="rocket-trail" id="rocket-trail-line"></div><div class="rocket-ship" id="rocket-emoji">🚀</div></div></div>`;
             } else if (gameType === 'cases') {
-                title.innerText = "📦 Boîtes Mystères Premium";
-                opt.innerHTML = `<div class="input-group"><label>Sélectionner la Box</label><select id="box-type"><option value="10">Caisse Recrue (10$)</option><option value="50">Caisse Vétéran (50$)</option><option value="250">Caisse Légendaire (250$)</option></select></div>`;
-                display.innerHTML = `<div class="box-stage"><div class="box-icon-anim" id="box-sprite">📦</div></div>`;
+                title.innerText = "📦 Boîtes Mystères Interactives";
+                opt.innerHTML = `<div class="input-group"><label>Type de Box</label><select id="box-type"><option value="10">Caisse Recrue (10$)</option><option value="50">Caisse Élite (50$)</option><option value="250">Caisse Suprême (250$)</option></select></div>`;
+                display.innerHTML = `<div class="box-stage"><p style="color:var(--text-muted);">Achetez une boîte pour commencer l'ouverture manuelle.</p></div>`;
+            } else if (gameType === 'limbo') {
+                title.innerText = "🎯 Limbo Multiplier";
+                opt.innerHTML = `<div class="input-group"><label>Multiplicateur Cible (Multiplier Target)</label><input type="number" id="limbo-target" value="2.00" step="0.1" min="1.01"></div>`;
+                display.innerHTML = `<div class="limbo-wrapper"><div id="limbo-multiplier-display">1.00x</div></div>`;
+            } else if (gameType === 'roulette') {
+                title.innerText = "🎡 Roulette Multi-Color Slider";
+                opt.innerHTML = `
+                    <div class="roulette-chips-selectors">
+                        <button class="chip-btn r-red active-chip" id="chip-red" onclick="selectRouletteTarget('red')">Rouge (x2)</button>
+                        <button class="chip-btn r-black" id="chip-black" onclick="selectRouletteTarget('black')">Noir (x2)</button>
+                        <button class="chip-btn r-gold" id="chip-gold" onclick="selectRouletteTarget('gold')">Gold (x14)</button>
+                    </div>`;
+                buildRouletteTape(display);
             }
         }
 
         function executeGameLogic() {
             let bet = parseFloat(document.getElementById('bet-amount').value);
             if (isNaN(bet) || bet <= 0 || bet > balance) {
-                alert("Mise invalide ou solde insuffisant !");
-                return;
+                alert("Mise invalide ou capital insuffisant !"); return;
             }
-
-            if (currentGame === 'mines') {
-                handleMinesMainAction(bet);
-            } else if (currentGame === 'crash') {
-                runCrash(bet);
-            } else if (currentGame === 'cases') {
-                runCases();
-            }
+            if (currentGame === 'mines') handleMinesMainAction(bet);
+            else if (currentGame === 'crash') runCrash(bet);
+            else if (currentGame === 'cases') buyMysteryBox(bet);
+            else if (currentGame === 'limbo') runLimbo(bet);
+            else if (currentGame === 'roulette') runRoulette(bet);
         }
 
-        /* MINES MODE */
+        /* 💣 MINES LOGIC */
         function buildMinesGrid5x5(display) {
             let gridHtml = '<div class="mines-grid-5x5">';
-            for(let i=0; i<25; i++) {
-                gridHtml += `<button class="mine-cell-5x5" id="cell-5x5-${i}" onclick="clickMinesTile(${i})"></button>`;
-            }
-            gridHtml += '</div>';
-            display.innerHTML = gridHtml;
+            for(let i=0; i<25; i++) gridHtml += `<button class="mine-cell-5x5" id="cell-5x5-${i}" onclick="clickMinesTile(${i})"></button>`;
+            display.innerHTML = gridHtml + '</div>';
         }
-
         function handleMinesMainAction(bet) {
             const actionBtn = document.getElementById('main-action-btn');
-            
             if (!isMinesActive) {
                 let numBombs = parseInt(document.getElementById('mine-bombs-count').value);
                 if (isNaN(numBombs) || numBombs < 1 || numBombs > 24) return;
-
-                balance -= bet;
-                updateBalanceView();
-
-                isMinesActive = true;
-                currentMinesBet = bet;
-                minesCount = numBombs;
-                revealedDiamonds = 0;
-                currentMinesMultiplier = 1.00;
-
+                balance -= bet; updateBalanceView();
+                isMinesActive = true; currentMinesBet = bet; minesCount = numBombs; revealedDiamonds = 0; currentMinesMultiplier = 1.00;
                 minesBoard = Array(25).fill('💎');
                 let bombsPlaced = 0;
                 while (bombsPlaced < minesCount) {
-                    let randIndex = Math.floor(Math.random() * 25);
-                    if (minesBoard[randIndex] !== '💣') {
-                        minesBoard[randIndex] = '💣';
-                        bombsPlaced++;
-                    }
+                    let r = Math.floor(Math.random() * 25);
+                    if (minesBoard[r] !== '💣') { minesBoard[r] = '💣'; bombsPlaced++; }
                 }
-
                 for(let i=0; i<25; i++) {
-                    let tile = document.getElementById(`cell-5x5-${i}`);
-                    tile.className = 'mine-cell-5x5';
-                    tile.innerHTML = '';
-                    tile.disabled = false;
+                    let t = document.getElementById(`cell-5x5-${i}`);
+                    t.className = 'mine-cell-5x5'; t.innerHTML = ''; t.disabled = false;
                 }
-
-                actionBtn.innerText = "Encaisser (1.00x)";
-                actionBtn.style.background = 'var(--gold)';
+                actionBtn.innerText = "Encaisser (1.00x)"; actionBtn.style.background = 'var(--gold)';
             } else {
-                let finalWinnings = currentMinesBet * currentMinesMultiplier;
-                balance += finalWinnings;
-                updateBalanceView();
-                
-                isMinesActive = false;
-                actionBtn.innerText = `Gagné +${finalWinnings.toFixed(2)}$`;
-                actionBtn.style.background = 'var(--neon-green)';
+                let won = currentMinesBet * currentMinesMultiplier;
+                balance += won; updateBalanceView(); isMinesActive = false;
+                actionBtn.innerText = `Gagné +${won.toFixed(2)}$`; actionBtn.style.background = 'var(--neon-green)';
                 revealEntireMinesBoard(true);
             }
         }
-
         function clickMinesTile(index) {
             if (!isMinesActive) return;
-            
             let tile = document.getElementById(`cell-5x5-${index}`);
             if (tile.classList.contains('clicked')) return;
-
             tile.classList.add('clicked');
-
             setTimeout(() => {
                 if (minesBoard[index] === '💣') {
-                    tile.classList.add('bomb-exploded');
-                    tile.innerHTML = '💥';
-                    
-                    isMinesActive = false;
+                    tile.classList.add('bomb-exploded'); tile.innerHTML = '💥'; isMinesActive = false;
                     const actionBtn = document.getElementById('main-action-btn');
-                    actionBtn.innerText = "💥 PERDU !";
-                    actionBtn.style.background = 'var(--neon-red)';
-                    actionBtn.style.boxShadow = '0 0 15px var(--neon-red-glow)';
-                    
-                    triggerScreenEffects('lose');
-                    revealEntireMinesBoard(false);
+                    actionBtn.innerText = "💥 PERDU !"; actionBtn.style.background = 'var(--neon-red)';
+                    triggerScreenEffects('lose'); revealEntireMinesBoard(false);
                 } else {
-                    tile.classList.add('diamond-found');
-                    tile.innerHTML = '💎';
-                    revealedDiamonds++;
-
-                    let totalSafeTiles = 25 - minesCount;
-                    let remainingSafeTiles = totalSafeTiles - (revealedDiamonds - 1);
-                    let remainingTotalTiles = 25 - (revealedDiamonds - 1);
-                    
-                    currentMinesMultiplier *= (remainingTotalTiles / remainingSafeTiles);
-                    
+                    tile.classList.add('diamond-found'); tile.innerHTML = '💎'; revealedDiamonds++;
+                    let safe = 25 - minesCount;
+                    currentMinesMultiplier *= ((25 - (revealedDiamonds - 1)) / (safe - (revealedDiamonds - 1)));
                     const actionBtn = document.getElementById('main-action-btn');
-                    let potentialGains = currentMinesBet * currentMinesMultiplier;
-                    actionBtn.innerText = `Encaisser ${potentialGains.toFixed(2)}$ (${currentMinesMultiplier.toFixed(2)}x)`;
-
-                    if (revealedDiamonds === totalSafeTiles) {
-                        balance += potentialGains;
-                        updateBalanceView();
-                        isMinesActive = false;
-                        actionBtn.innerText = `🎉 MAX WIN : +${potentialGains.toFixed(2)}$`;
-                        actionBtn.style.background = 'var(--neon-green)';
+                    let gains = currentMinesBet * currentMinesMultiplier;
+                    actionBtn.innerText = `Encaisser ${gains.toFixed(2)}$ (${currentMinesMultiplier.toFixed(2)}x)`;
+                    if (revealedDiamonds === safe) {
+                        balance += gains; updateBalanceView(); isMinesActive = false;
+                        actionBtn.innerText = `🎉 MAX WIN : +${gains.toFixed(2)}$`; actionBtn.style.background = 'var(--neon-green)';
                         revealEntireMinesBoard(true);
                     }
                 }
             }, 120);
         }
-
-        function revealEntireMinesBoard(playerWon) {
+        function revealEntireMinesBoard(w) {
             for(let i=0; i<25; i++) {
-                let tile = document.getElementById(`cell-5x5-${i}`);
-                tile.disabled = true;
-                
-                if (!tile.classList.contains('diamond-found') && !tile.classList.contains('bomb-exploded')) {
-                    if (minesBoard[i] === '💣') {
-                        tile.innerHTML = '💣';
-                        tile.style.background = playerWon ? 'rgba(255,255,255,0.05)' : 'rgba(255, 51, 102, 0.15)';
-                    } else {
-                        tile.innerHTML = '💎';
-                        tile.classList.add('revealed-safe');
-                    }
+                let t = document.getElementById(`cell-5x5-${i}`); t.disabled = true;
+                if (!t.classList.contains('diamond-found') && !t.classList.contains('bomb-exploded')) {
+                    if (minesBoard[i] === '💣') { t.innerHTML = '💣'; t.style.background = w ? 'rgba(255,255,255,0.05)' : 'rgba(255, 51, 102, 0.15)'; }
+                    else { t.innerHTML = '💎'; t.classList.add('revealed-safe'); }
                 }
             }
         }
 
-        /* CRASH MODE WITH ROCKET ANIMATION */
+        /* 🚀 CRASH LOGIC */
         function runCrash(bet) {
-            const actionBtn = document.getElementById('main-action-btn');
-            const rocket = document.getElementById('rocket-emoji');
-            const trail = document.getElementById('rocket-trail-line');
-            const multText = document.getElementById('crash-multiplier');
-
+            const btn = document.getElementById('main-action-btn');
+            const rkt = document.getElementById('rocket-emoji');
+            const trl = document.getElementById('rocket-trail-line');
+            const txt = document.getElementById('crash-multiplier');
             if (!gameRunning) {
-                balance -= bet;
-                updateBalanceView();
-                gameRunning = true;
-                crashMultiplier = 1.00;
-                
-                // Détermination du point de crash de la fusée
-                crashPoint = Math.random() > 0.5 ? (Math.random() * 1.5 + 1.05) : (Math.random() * 4.5 + 1.1);
-                
-                actionBtn.innerText = "CASH OUT (1.00x)";
-                actionBtn.style.background = 'var(--gold)';
-                multText.style.color = '#fff';
-
+                balance -= bet; updateBalanceView(); gameRunning = true; crashMultiplier = 1.00;
+                crashPoint = Math.random() > 0.5 ? (Math.random() * 1.6 + 1.02) : (Math.random() * 4.2 + 1.1);
+                btn.innerText = "CASH OUT (1.00x)"; btn.style.background = 'var(--gold)';
                 crashInterval = setInterval(() => {
-                    crashMultiplier += 0.03 * (1 + (crashMultiplier * 0.1)); // Accélération exponentielle
-                    multText.innerText = crashMultiplier.toFixed(2) + 'x';
-                    actionBtn.innerText = `CASH OUT (${crashMultiplier.toFixed(2)}x)`;
-
-                    // Animation physique de la fusée
-                    let progress = Math.min((crashMultiplier - 1) * 15, 85); 
-                    rocket.style.left = progress + '%';
-                    rocket.style.bottom = progress + '%';
-                    trail.style.width = (progress * 1.4) + '%';
-                    trail.style.transform = `rotate(-45deg)`;
-
+                    crashMultiplier += 0.03 * (1 + (crashMultiplier * 0.1));
+                    txt.innerText = crashMultiplier.toFixed(2) + 'x';
+                    btn.innerText = `CASH OUT (${crashMultiplier.toFixed(2)}x)`;
+                    let p = Math.min((crashMultiplier - 1) * 16, 85);
+                    rkt.style.left = p + '%'; rkt.style.bottom = p + '%';
+                    trl.style.width = (p * 1.4) + '%'; trl.style.transform = `rotate(-45deg)`;
                     if (crashMultiplier >= crashPoint) {
                         clearInterval(crashInterval);
-                        multText.innerText = '💥 CRASHED @ ' + crashMultiplier.toFixed(2) + 'x';
-                        multText.style.color = 'var(--neon-red)';
-                        rocket.innerHTML = '💥';
-                        actionBtn.innerText = "PERDU !";
-                        actionBtn.style.background = 'var(--neon-red)';
-                        triggerScreenEffects('lose');
-                        gameRunning = false;
+                        txt.innerText = '💥 CRASH @ ' + crashMultiplier.toFixed(2) + 'x';
+                        rkt.innerHTML = '💥'; btn.innerText = "EXPLOSÉ !"; btn.style.background = 'var(--neon-red)';
+                        triggerScreenEffects('lose'); gameRunning = false;
                     }
                 }, 80);
             } else {
                 clearInterval(crashInterval);
-                let winnings = bet * crashMultiplier;
-                balance += winnings;
-                updateBalanceView();
-                actionBtn.innerText = `GAGNÉ +${winnings.toFixed(2)}$ !`;
-                actionBtn.style.background = 'var(--neon-green)';
+                let win = bet * crashMultiplier; balance += win; updateBalanceView();
+                btn.innerText = `GAGNÉ +${win.toFixed(2)}$`; btn.style.background = 'var(--neon-green)';
                 gameRunning = false;
             }
         }
 
-        /* OPENING CASES WITH RUMBLE AND EXPLOSION */
-        function runCases() {
-            let boxPrice = parseFloat(document.getElementById('box-type').value);
-            if (balance < boxPrice) { alert("Solde insuffisant !"); return; }
+        /* 📦 INTERACTIVE MYSTERY BOX LOGIC */
+        function buyMysteryBox(bet) {
+            let price = parseFloat(document.getElementById('box-type').value);
+            if (balance < price) { alert("Solde insuffisant pour cette boîte !"); return; }
+            balance -= price; updateBalanceView();
+            currentActiveBoxPrice = price;
+
+            const display = document.getElementById('game-display-zone');
+            const actionBtn = document.getElementById('main-action-btn');
+
+            actionBtn.disabled = true;
+            actionBtn.innerText = "Ouvrez la boîte à l'écran";
+            actionBtn.style.background = "#334155";
+
+            // Fait pop la boîte cliquable
+            display.innerHTML = `
+                <div class="box-stage">
+                    <div class="interactive-box-wrapper" id="clickable-box" onclick="interactOpenBox()">
+                        <div class="box-big-icon" id="box-visual">🎁</div>
+                    </div>
+                    <div class="box-hint-text" id="box-hint">⚡ CLIQUER SUR LA BOÎTE POUR L'OUVRIR ⚡</div>
+                </div>`;
+        }
+
+        function interactOpenBox() {
+            const box = document.getElementById('clickable-box');
+            const visual = document.getElementById('box-visual');
+            const hint = document.getElementById('box-hint');
             
-            balance -= boxPrice; 
-            updateBalanceView();
-            
-            const stage = document.querySelector('.box-stage');
-            const sprite = document.getElementById('box-sprite');
-            
-            // Étape 1 : La caisse vibre
-            sprite.className = "box-icon-anim box-shake-anim";
-            
+            // Empêche les doubles clics
+            box.onclick = null;
+            hint.innerText = "Ouverture en cours...";
+            visual.className = "box-big-icon box-shake-heavy";
+
             setTimeout(() => {
-                // Étape 2 : Explosion de la caisse
-                sprite.className = "box-icon-anim box-open-explode";
-                
+                visual.className = "box-big-icon box-explode-out";
                 setTimeout(() => {
-                    let rng = Math.random(); 
-                    let mult = 0.2; 
-                    let name = "Objet Commun Modeste";
+                    let rng = Math.random(); let mult = 0.1; let loot = "Déchet en plastique";
+                    if (rng > 0.95) { mult = 12.0; loot = "👑 ULTRA RARE : COUTEAU KARAMBIT LORE"; }
+                    else if (rng > 0.75) { mult = 2.5; loot = "🔮 MYTHIQUE : GANTS SANGUINS CORRODÉS"; }
+                    else if (rng > 0.45) { mult = 1.1; loot = "🔫 CLASSIQUE : AK-47 ASSAUT NEON"; }
                     
-                    if (rng > 0.94) { mult = 8.5; name = "⚔️ COUTEAU PAPILLON GAMMA DOCHER"; }
-                    else if (rng > 0.70) { mult = 2.0; name = "🧤 GANTS SQUELETTIQUES"; }
-                    else if (rng > 0.40) { mult = 0.9; name = "🔫 M4A4 NÉON NOIR"; }
-                    
-                    let won = boxPrice * mult; 
-                    balance += won; 
-                    updateBalanceView();
-                    
+                    let totalWin = currentActiveBoxPrice * mult;
+                    balance += totalWin; updateBalanceView();
+
+                    const stage = document.querySelector('.box-stage');
                     stage.innerHTML = `
                         <div class="reward-card">
-                            <div style="font-size:50px; margin-bottom:10px;">💎</div>
-                            <h4 style="color:var(--text-gold); font-size:18px; margin-bottom:5px;">${name}</h4>
-                            <p style="font-size:20px; font-weight:800; color:var(--neon-green);">${won.toFixed(2)}$ (${mult}x)</p>
-                            <button class="btn-leave" style="margin-top:15px;" onclick="startGame('cases')">Ouvrir une autre box</button>
+                            <div style="font-size:55px; margin-bottom:12px; animation: floatBox 1s ease-in-out infinite;">💎</div>
+                            <h4 style="color:var(--text-gold); font-size:16px; margin-bottom:8px; text-transform:uppercase;">${loot}</h4>
+                            <p style="font-size:24px; font-weight:800; color:var(--neon-green);">${totalWin.toFixed(2)}$ (${mult}x)</p>
+                            <button class="btn-leave" style="margin-top:20px; border-color:var(--neon-green); color:var(--neon-green);" onclick="startGame('cases')">Acheter une autre boîte</button>
                         </div>`;
-                }, 300);
-            }, 1200);
+                    
+                    const actionBtn = document.getElementById('main-action-btn');
+                    actionBtn.disabled = false;
+                    actionBtn.innerText = "Placer la mise";
+                    actionBtn.style.background = 'var(--neon-green)';
+                }, 250);
+            }, 1000); // 1 seconde de secousses addictives
+        }
+
+        /* 🎯 LIMBO MODE */
+        function runLimbo(bet) {
+            let target = parseFloat(document.getElementById('limbo-target').value);
+            if (isNaN(target) || target <= 1.00) { alert("Cible invalide !"); return; }
+            balance -= bet; updateBalanceView();
+
+            const displayScore = document.getElementById('limbo-multiplier-display');
+            const actionBtn = document.getElementById('main-action-btn');
+            actionBtn.disabled = true;
+
+            let finalRoll = Math.random() < 0.55 ? (Math.random() * 1.8 + 1) : (Math.random() * 8 + 1);
+            if (Math.random() > 0.96) finalRoll = Math.random() * 60 + 10; // High roll rare
+
+            let currentVal = 1.00;
+            let duration = 800; 
+            let start = performance.now();
+
+            displayScore.style.color = "#fff";
+
+            // Animation du compteur fluide
+            function updateCounter(now) {
+                let elapsed = now - start;
+                let progress = Math.min(elapsed / duration, 1);
+                currentVal = 1.00 + (finalRoll - 1.00) * progress;
+                displayScore.innerText = currentVal.toFixed(2) + 'x';
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    // Résultat final
+                    displayScore.innerText = finalRoll.toFixed(2) + 'x';
+                    if (finalRoll >= target) {
+                        displayScore.style.color = "var(--neon-green)";
+                        let payout = bet * target; balance += payout; updateBalanceView();
+                        actionBtn.innerText = `GAGNÉ +${payout.toFixed(2)}$`;
+                    } else {
+                        displayScore.style.color = "var(--neon-red)";
+                        actionBtn.innerText = "PERDU"; triggerScreenEffects('lose');
+                    }
+                    actionBtn.disabled = false;
+                    actionBtn.style.background = 'var(--neon-green)';
+                }
+            }
+            requestAnimationFrame(updateCounter);
+        }
+
+        /* 🎡 ROULETTE LOGIC */
+        function buildRouletteTape(display) {
+            display.innerHTML = `
+                <div class="roulette-arena">
+                    <div class="roulette-view-window">
+                        <div class="roulette-marker-line"></div>
+                        <div class="roulette-strip-tape" id="roulette-tape"></div>
+                    </div>
+                </div>`;
+            const tape = document.getElementById('roulette-tape');
+            let tapeContent = '';
+            // Génère 60 blocs pour avoir un défilement infini visuel
+            const types = ['red', 'black', 'red', 'black', 'red', 'black', 'gold', 'black', 'red', 'black', 'red'];
+            for(let i=0; i<60; i++) {
+                let pick = types[i % types.length];
+                let label = pick === 'gold' ? '⭐' : (pick === 'red' ? 'R' : 'B');
+                tapeContent += `<div class="roulette-block r-${pick}">${label}</div>`;
+            }
+            tape.innerHTML = tapeContent;
+        }
+        function selectRouletteTarget(color) {
+            selectedRouletteColor = color;
+            document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active-chip'));
+            document.getElementById(`chip-${color}`).classList.add('active-chip');
+        }
+        function runRoulette(bet) {
+            balance -= bet; updateBalanceView();
+            const tape = document.getElementById('roulette-tape');
+            const actionBtn = document.getElementById('main-action-btn');
+            actionBtn.disabled = true;
+
+            // Reset position physique sans transition
+            tape.style.transition = 'none';
+            tape.style.transform = 'translateX(0px)';
+
+            // Force le reflow du navigateur
+            tape.offsetHeight;
+
+            // Détermine l'index gagnant éloigné sur la bande (ex: entre l'index 35 et 45)
+            let winIndex = Math.floor(Math.random() * 10) + 35;
+            const colorsPattern = ['red', 'black', 'red', 'black', 'red', 'black', 'gold', 'black', 'red', 'black', 'red'];
+            let landingColor = colorsPattern[winIndex % colorsPattern.length];
+
+            // Calcul du décalage en pixels (Chaque bloc fait 75px de large)
+            let centerWindowOffset = 300 - 37.5; // Centre de la zone moins moitié d'un bloc
+            let targetX = -(winIndex * 77) + centerWindowOffset; // 77 inclut la bordure de 2px
+
+            // Applique l'animation fluide d'inertie
+            tape.style.transition = 'transform 3.5s cubic-bezier(0.1, 0.8, 0.1, 1)';
+            tape.style.transform = `translateX(${targetX}px)`;
+
+            setTimeout(() => {
+                actionBtn.disabled = false;
+                if (landingColor === selectedRouletteColor) {
+                    let mult = landingColor === 'gold' ? 14 : 2;
+                    let profit = bet * mult; balance += profit; updateBalanceView();
+                    actionBtn.innerText = `🎉 GAGNÉ +${profit.toFixed(2)}$`;
+                } else {
+                    actionBtn.innerText = `PERDU (C'était le ${landingColor})`;
+                    triggerScreenEffects('lose');
+                }
+            }, 3600);
         }
 
         /* LIVE FEED GAINS SIMULÉS */
-        const usernames = ["TristanX", "CryptoBro", "KcorpMaster", "Zeus99", "LuckyMan", "AlphaGamer"];
-        const games = ["Crash", "Mines", "Boîtes"];
-        const tickerContainer = document.getElementById('live-wins-container');
+        const usernames = ["TristanX", "CryptoBro", "KcorpFan", "Zeus99", "LuckyUser", "SaucisseMan", "AlphaGambler"];
+        const gamePool = ["Crash", "Mines", "Boîtes", "Limbo", "Roulette"];
+        const ticker = document.getElementById('live-wins-container');
 
         function generateLiveWin() {
             const user = usernames[Math.floor(Math.random() * usernames.length)];
-            const game = games[Math.floor(Math.random() * games.length)];
-            const amount = (Math.random() * 140 + 5).toFixed(2);
-            const winBox = document.createElement('div'); 
-            winBox.className = 'win-box';
-            winBox.innerHTML = `<strong>${user}</strong><span style="color:var(--text-muted);">${game}</span><span style="color:var(--neon-green);">+${amount}$</span>`;
-            tickerContainer.insertBefore(winBox, tickerContainer.firstChild);
-            if (tickerContainer.children.length > 5) tickerContainer.removeChild(tickerContainer.lastChild);
+            const g = gamePool[Math.floor(Math.random() * gamePool.length)];
+            const amt = (Math.random() * 150 + 4).toFixed(2);
+            const wBox = document.createElement('div'); wBox.className = 'win-box';
+            wBox.innerHTML = `<strong>${user}</strong><span style="color:var(--text-muted);">${g}</span><span style="color:var(--neon-green);">+${amt}$</span>`;
+            ticker.insertBefore(wBox, ticker.firstChild);
+            if (ticker.children.length > 5) ticker.removeChild(ticker.lastChild);
         }
-        setInterval(generateLiveWin, 2500); generateLiveWin(); generateLiveWin();
+        setInterval(generateLiveWin, 2200); generateLiveWin(); generateLiveWin();
     </script>
 </body>
 </html>
