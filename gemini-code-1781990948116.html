@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeBet | Premium Gaming Platform</title>
+    <style>
+        /* Variables de design Premium */
+        :root {
+            --bg-body: #0b0e14;
+            --bg-sidebar: #111622;
+            --bg-card: #171f30;
+            --bg-card-hover: #1f2a42;
+            --primary: #9d4edd;
+            --primary-glow: rgba(157, 78, 221, 0.4);
+            --neon-green: #00ff88;
+            --neon-green-glow: rgba(0, 255, 136, 0.3);
+            --gold: #ffb703;
+            --text-main: #ffffff;
+            --text-muted: #64748b;
+            --text-gold: #ffd166;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- BARRE LATÉRALE (SIDEBAR) --- */
+        aside {
+            width: 260px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        .brand {
+            padding: 25px;
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .menu-section {
+            padding: 0 15px;
+            margin-bottom: 25px;
+        }
+
+        .menu-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            padding-left: 10px;
+            margin-bottom: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--primary);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(90deg, rgba(157, 78, 221, 0.15) 0%, rgba(0,0,0,0) 100%);
+            border-left: 3px solid var(--primary);
+            color: #fff;
+        }
+
+        .menu-item span {
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        /* --- CONTENU PRINCIPAL --- */
+        main {
+            margin-left: 260px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HEADER & SOLDE --- */
+        header {
+            height: 75px;
+            background-color: rgba(11, 14, 20, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 9;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .wallet-zone {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-sidebar);
+            border-radius: 8px;
+            padding: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .balance {
+            padding: 0 15px;
+            font-weight: 700;
+            color: var(--text-gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-deposit {
+            background: linear-gradient(135deg, var(--primary), #7b2cbf);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            transition: transform 0.2s;
+        }
+
+        .btn-deposit:hover {
+            transform: translateY(-2px);
+        }
+
+        /* --- FIL D'ACTUALITÉ DES GAINS (LIVE WINS) --- */
+        .live-ticker {
+            background-color: #080a0f;
+            height: 45px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 0 40px;
+            overflow: hidden;
+        }
+
+        .ticker-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--neon-green);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .ticker-label::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--neon-green);
+        }
+
+        .ticker-container {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .win-box {
+            background-color: var(--bg-card);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--neon-green);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .win-box .game-name { color: var(--text-muted); }
+        .win-box .amount { color: var(--neon-green); font-weight: 700; }
+
+        /* --- BANNIÈRE PRINCIPALE (HERO) --- */
+        .content-body {
+            padding: 40px;
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(23, 31, 48, 0.8) 0%, rgba(17, 22, 34, 0.4) 100%), 
+                        radial-gradient(circle at top right, var(--primary-glow), transparent 60%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-text h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            max-width: 500px;
+        }
+
+        .btn-claim {
+            background: linear-gradient(90deg, var(--gold), #ff9f1c);
+            color: #000;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 183, 3, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-claim:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 183, 3, 0.5);
+        }
+
+        /* --- GRILLE DES JEUX (GAMES GRID) --- */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .game-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Effet visuel premium au survol */
+        .game-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(157, 78, 221, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-glow);
+        }
+
+        .game-thumbnail {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dégradés stylisés pour simuler les artworks des jeux Stake/Packdraw */
+        .thumb-crash { background: linear-gradient(135deg, #2c1a4d, #110924); }
+        .thumb-mines { background: linear-gradient(135deg, #163e30, #091a14); }
+        .thumb-cases { background: linear-gradient(135deg, #4d3a1a, #241909); }
+        .thumb-plinko { background: linear-gradient(135deg, #1a364d, #091624); }
+
+        .game-icon {
+            font-size: 50px;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover .game-icon {
+            transform: scale(1.15) rotate(3deg);
+        }
+
+        .game-info {
+            padding: 18px;
+            background-color: rgba(23, 31, 48, 0.4);
+        }
+
+        .game-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .game-tag {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edge-indicator {
+            background-color: rgba(255,255,255,0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <aside>
+        <div class="brand">Luxe<span>Bet</span></div>
+        
+        <div class="menu-section">
+            <div class="menu-label">Navigation</div>
+            <a href="#" class="menu-item active"><span>🏠</span> Accueil</a>
+            <a href="#" class="menu-item"><span>🎮</span> Tous les Jeux</a>
+            <a href="#" class="menu-item"><span>🎁</span> Giveaways</a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-label">Jeux Originaux</div>
+            <a href="#" class="menu-item"><span>📈</span> Crash</a>
+            <a href="#" class="menu-item"><span>💣</span> Mines</a>
+            <a href="#" class="menu-item"><span>📦</span> Case Opening</a>
+            <a href="#" class="menu-item"><span>🔮</span> Plinko</a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-label">Club Privé</div>
+            <a href="#" class="menu-item" style="color: var(--gold);"><span>👑</span> Espace VIP</a>
+            <a href="#" class="menu-item"><span>🤝</span> Affiliation</a>
+        </div>
+    </aside>
+
+    <main>
+        <div class="live-ticker">
+            <div class="ticker-label">Gains en direct</div>
+            <div class="ticker-container" id="live-wins-container">
+                </div>
+        </div>
+
+        <header>
+            <div class="wallet-zone">
+                <div class="balance">
+                    <span>🪙</span> <span id="user-balance">1,450.50</span> $
+                </div>
+                <button class="btn-deposit" onclick="addMoney()">Dépôt</button>
+            </div>
+        </header>
+
+        <div class="content-body">
+            
+            <section class="hero-banner">
+                <div class="hero-text">
+                    <h1>Misez sur l'<span>Excellence</span></h1>
+                    <p>Découvrez nos modes exclusifs équitables (Provably Fair) dotés des meilleurs taux de retour du marché.</p>
+                    <button class="btn-claim" onclick="claimDaily()">Récupérer la boîte journalière</button>
+                </div>
+                <div style="font-size: 90px; filter: drop-shadow(0 0 20px var(--primary-glow));">💎</div>
+            </section>
+
+            <section>
+                <div class="section-header">
+                    <h2>Nos originaux premium</h2>
+                </div>
+
+                <div class="games-grid">
+                    
+                    <div class="game-card">
+                        <div class="game-thumbnail thumb-crash">
+                            <div class="game-icon">📈</div>
+                        </div>
+                        <div class="game-info">
+                            <div class="game-title">Crash</div>
+                            <div class="game-tag">
+                                En ligne
+                                <span class="edge-indicator">99% RTP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-thumbnail thumb-mines">
+                            <div class="game-icon">💣</div>
+                        </div>
+                        <div class="game-info">
+                            <div class="game-title">Mines</div>
+                            <div class="game-tag">
+                                Stratégie
+                                <span class="edge-indicator">98.5% RTP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-thumbnail thumb-cases">
+                            <div class="game-icon">📦</div>
+                        </div>
+                        <div class="game-info">
+                            <div class="game-title">Boîtes Mystères</div>
+                            <div class="game-tag">
+                                Packdraw style
+                                <span class="edge-indicator">Premium</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-thumbnail thumb-plinko">
+                            <div class="game-icon">🔮</div>
+                        </div>
+                        <div class="game-info">
+                            <div class="game-title">Plinko</div>
+                            <div class="game-tag">
+                                Multiplicateurs
+                                <span class="edge-indicator">Classic</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // Simulation du solde
+        let balance = 1450.50;
+        function addMoney() {
+            balance += 100;
+            document.getElementById('user-balance').innerText = balance.toFixed(2);
+        }
+
+        function claimDaily() {
+            alert("🎁 Félicitations ! Tu as ouvert ta boîte journalière et gagné 5.00$ !");
+            balance += 5.00;
+            document.getElementById('user-balance').innerText = balance.toFixed(2);
+        }
+
+        // --- SIMULATION DU FLUX DE GAINS EN DIRECT (Live Wins) ---
+        const usernames = ["AlphaPlayer", "CryptoWhale", "ShadowW", "Squeez_G", "Zeus99", "Lucifer", "GamblerX", "KcorpFan"];
+        const games = ["Crash", "Mines", "Boîtes", "Plinko"];
+        
+        const tickerContainer = document.getElementById('live-wins-container');
+
+        function generateLiveWin() {
+            // Sélection aléatoire de données
+            const user = usernames[Math.floor(Math.random() * usernames.length)];
+            const game = games[Math.floor(Math.random() * games.length)];
+            const amount = (Math.random() * 85 + 2).toFixed(2);
+
+            // Création de l'élément HTML
+            const winBox = document.createElement('div');
+            winBox.className = 'win-box';
+            winBox.innerHTML = `
+                <span style="font-weight: 600;">${user}</span>
+                <span class="game-name">${game}</span>
+                <span class="amount">+${amount}$</span>
+            `;
+
+            // Ajout au container
+            tickerContainer.insertBefore(winBox, tickerContainer.firstChild);
+
+            // Limiter à 5 éléments affichés simultanément pour l'esthétique
+            if (tickerContainer.children.length > 5) {
+                tickerContainer.removeChild(tickerContainer.lastChild);
+            }
+        }
+
+        // Génère un gain toutes les 2.5 secondes
+        setInterval(generateLiveWin, 2500);
+        // Premiers lancements immédiats pour remplir la barre
+        generateLiveWin();
+        generateLiveWin();
+        generateLiveWin();
+    </script>
+</body>
+</html>
